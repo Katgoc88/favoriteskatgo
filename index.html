@@ -45,6 +45,31 @@
 </head>
 <body>
 
+  <script>
+  const password = "rutynadw"; // 🔐 wpisz tu swoje hasło
+
+  // Sprawdź, czy hasło już zostało wcześniej zapisane
+  const saved = localStorage.getItem("haslo-ok");
+
+  if (saved !== "true") {
+    const userInput = prompt("Enter password to access this page:");
+
+    if (userInput === password) {
+      localStorage.setItem("haslo-ok", "true");
+    } else {
+      document.body.innerHTML = "<h2 style='text-align:center; margin-top: 100px;'>Access Denied</h2>";
+    }
+  }
+</script>
+<button onclick="logout()" style="margin: 10px 0; padding: 6px 12px;">Wyloguj</button>
+
+<script>
+  function logout() {
+    localStorage.removeItem("haslo-ok");
+    location.reload(); // odśwież stronę po wylogowaniu
+  }
+</script>
+
   <h2>→ SAHARA</h2>
   <a href="https://app.galxe.com/quest/SaharaAI/GCNLYtpFM5">SAHARA GALXE</a>
   <a href="https://legends.saharalabs.ai/">SAHARA LEGENDS</a>
