@@ -45,28 +45,31 @@
 </head>
 <body>
 
-  <script>
-  const password = "rutynadw"; // 🔐 wpisz tu swoje hasło
-
-  // Sprawdź, czy hasło już zostało wcześniej zapisane
-  const saved = localStorage.getItem("haslo-ok");
-
-  if (saved !== "true") {
-    const userInput = prompt("Enter password to access this page:");
-
-    if (userInput === password) {
-      localStorage.setItem("haslo-ok", "true");
-    } else {
-      document.body.innerHTML = "<h2 style='text-align:center; margin-top: 100px;'>Access Denied</h2>";
-    }
-  }
-</script>
-<button onclick="logout()" style="margin: 10px 0; padding: 6px 12px;">Wyloguj</button>
+  <div id="auth-overlay" style="position: fixed; top:0; left:0; width:100%; height:100%; background:#000; display:flex; align-items:center; justify-content:center; z-index:9999;">
+  <div style="text-align:center; background:#fff; padding:30px; border-radius:10px; box-shadow:0 0 15px rgba(0,0,0,0.3);">
+    <h2>Enter Password</h2>
+    <input type="password" id="password-input" style="padding:8px; margin-top:10px;" placeholder="••••••••"><br>
+    <button onclick="checkPassword()" style="margin-top:10px; padding:6px 14px;">Login</button>
+    <p id="error-msg" style="color:red; display:none; margin-top:10px;">Wrong password.</p>
+  </div>
+</div>
 
 <script>
-  function logout() {
-    localStorage.removeItem("haslo-ok");
-    location.reload(); // odśwież stronę po wylogowaniu
+  const password = "rutynadw"; // 👈 wpisz swoje hasło
+
+  // Jeśli już zapisano hasło, chowamy overlay
+  if (localStorage.getItem("haslo-ok") === "true") {
+    document.getElementById("auth-overlay").style.display = "none";
+  }
+
+  function checkPassword() {
+    const input = document.getElementById("password-input").value;
+    if (input === password) {
+      localStorage.setItem("haslo-ok", "true");
+      document.getElementById("auth-overlay").style.display = "none";
+    } else {
+      document.getElementById("error-msg").style.display = "block";
+    }
   }
 </script>
 
